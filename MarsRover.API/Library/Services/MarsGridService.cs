@@ -17,8 +17,8 @@ namespace MarsRover.API.Library.Services
 
         public MarsGridService(IMapper mapper, IValidationDictionary validation, IMarsGridRepository repo)
         {
-            _repo = repo;
             _mapper = mapper;
+            _repo = repo;
             _validation = validation;
         }
         public async Task<IValidationDictionary> Create(MarsGridDto dto)

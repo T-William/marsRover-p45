@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace MarsRover.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class RoverMovementController : ControllerBase
     {
         private readonly IRoverMovementService _service;

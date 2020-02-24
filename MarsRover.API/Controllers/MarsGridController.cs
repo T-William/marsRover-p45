@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarsRover.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MarsGridController : ControllerBase
     {
         private readonly IMarsGridService _service;
