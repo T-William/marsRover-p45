@@ -24,10 +24,10 @@ namespace MarsRover.API.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult getRovers([FromQuery]RoverParams roverParams)
+        [HttpGet("full")]
+        public ActionResult getRovers()
         {
-            var rovers = _service.GetPagedList(roverParams);
+            var rovers = _service.GetRovers();
 
             return Ok(rovers);
 

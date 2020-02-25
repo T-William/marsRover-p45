@@ -63,11 +63,11 @@ namespace MarsRover.API.Library.Services
             return _validation;
         }
 
-        public async Task<IEnumerable<RoverDto>> GetPagedList(RoverParams roverParams)
+        public async Task<List<RoverDto>> GetRovers()
         {
-            var roversToList = await _repo.GetPagedRoverList(roverParams);
+            var roversToList = await _repo.GetRoversFull();
 
-            var roversToReturn = _mapper.Map<IEnumerable<RoverDto>>(roversToList);
+            var roversToReturn = _mapper.Map<List<RoverDto>>(roversToList);
 
             return roversToReturn;
 

@@ -56,9 +56,7 @@ namespace MarsRover.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("GridId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MarsGridId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -66,15 +64,9 @@ namespace MarsRover.API.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
-                    b.Property<int>("TotalDeployments")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalMovements")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MarsGridId");
+                    b.HasIndex("GridId");
 
                     b.ToTable("Rover");
                 });
@@ -124,8 +116,9 @@ namespace MarsRover.API.Migrations
                 {
                     b.HasOne("MarsRover.API.Models.MarsGrid", "MarsGrid")
                         .WithMany("Rovers")
-                        .HasForeignKey("MarsGridId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("GridId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MarsRover.API.Models.RoverMovement", b =>

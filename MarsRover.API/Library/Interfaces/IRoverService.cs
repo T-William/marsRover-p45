@@ -10,7 +10,7 @@ namespace MarsRover.API.Library.Interfaces
     public interface IRoverService
     {
 
-        Task<IEnumerable<RoverDto>> GetPagedList(RoverParams roverParams);
+        Task<List<RoverDto>> GetRovers();
         Task<IValidationDictionary> Create(RoverDto dto);
 
         Task<RoverDto> GetRover(int id);

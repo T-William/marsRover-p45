@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "MarsRover-SPA": {
@@ -24,7 +24,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+              "node_modules/@progress/kendo-theme-bootstrap/dist/all.css",
+              "node_modules/animate.css/animate.css"
             ],
             "scripts": []
           },
@@ -88,7 +94,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/solid.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
+              "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
+              "node_modules/@progress/kendo-theme-bootstrap/dist/all.css",
+              "node_modules/animate.css/animate.css"
             ],
             "scripts": []
           }
@@ -119,6 +131,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "MarsRover-SPA"
+    }
+  },
+  "defaultProject": "MarsRover-SPA",
+  "cli": {
+    "analytics": "594435a4-227f-4d15-a2e7-7652102de010"
+  }
 }

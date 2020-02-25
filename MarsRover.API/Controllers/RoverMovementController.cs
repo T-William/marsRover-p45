@@ -30,7 +30,7 @@ namespace MarsRover.API.Controllers
             return Ok(roverMovements);
         }
         [HttpGet("{id}", Name = "GetRoverMovement")]
-        public async Task<IActionResult> GetFund(int roverId)
+        public async Task<IActionResult> GetRoverMovement(int roverId)
         {
 
             var roverMovement = await _service.GetRoverMovement(roverId);

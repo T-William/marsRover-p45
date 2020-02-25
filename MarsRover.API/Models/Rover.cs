@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarsRover.API.Models
 {
@@ -9,10 +10,11 @@ namespace MarsRover.API.Models
         public int Id { get; set; }
         [MaxLength(150)]
         [Required]
-        public string Name { get; set; }
-        public int TotalMovements { get; set; }
-        public int TotalDeployments { get; set; }
+        public string Name { get; set; }        
+        [Required]
+        [ForeignKey("MarsGrid")]
         public int? GridId { get; set; }
+
         public MarsGrid MarsGrid { get; set; }
         public ICollection<RoverMovement> Movements { get; set; }
 
