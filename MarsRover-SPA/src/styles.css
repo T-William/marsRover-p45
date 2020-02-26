@@ -1,2 +1,7 @@
 
 @import '../node_modules/bootswatch/dist/flatly/bootstrap.min.css';
+
+
+.alertify-notifier .ajs-message.ajs-error{
+    color: white;
+}

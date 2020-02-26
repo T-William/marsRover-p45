@@ -4,14 +4,16 @@ using MarsRover.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MarsRover.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200226160556_rovermovementchange")]
+    partial class rovermovementchange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +57,29 @@ namespace MarsRover.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("GridId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GridId");
+
+                    b.ToTable("Rover");
+                });
+
+            modelBuilder.Entity("MarsRover.API.Models.RoverMovement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("BeginOrientation")
                         .HasColumnType("nvarchar(max)");
 
@@ -73,23 +98,18 @@ namespace MarsRover.API.Migrations
                     b.Property<int?>("EndY")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GridId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<string>("MovementInput")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<int>("RoverId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GridId");
+                    b.HasIndex("RoverId")
+                        .IsUnique();
 
-                    b.ToTable("Rover");
+                    b.ToTable("RoverMovement");
                 });
 
             modelBuilder.Entity("MarsRover.API.Models.Rover", b =>
@@ -98,6 +118,15 @@ namespace MarsRover.API.Migrations
                         .WithMany("Rovers")
                         .HasForeignKey("GridId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MarsRover.API.Models.RoverMovement", b =>
+                {
+                    b.HasOne("MarsRover.API.Models.Rover", "Rover")
+                        .WithOne("Movements")
+                        .HasForeignKey("MarsRover.API.Models.RoverMovement", "RoverId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

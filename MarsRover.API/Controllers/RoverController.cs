@@ -24,10 +24,10 @@ namespace MarsRover.API.Controllers
 
         }
 
-        [HttpGet("full")]
-        public ActionResult getRovers()
+        [HttpGet("full/{gridid}")]
+        public ActionResult getRovers(int gridId)
         {
-            var rovers = _service.GetRovers();
+            var rovers = _service.GetRovers(gridId);
 
             return Ok(rovers);
 
@@ -38,6 +38,20 @@ namespace MarsRover.API.Controllers
         {
             var rover = await _service.GetRover(id);
             return Ok(rover);
+        }
+
+        [HttpPut("calculate/{gridid}")]
+        public async Task<IActionResult> CalculateMovement(int gridId, RoverDto model)
+        {
+            var validation = await _service.CalculateMovement(gridId, model);
+            if (validation.IsValid)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(validation.Errors);
+            }
         }
 
         [HttpPost()]

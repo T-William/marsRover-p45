@@ -16,7 +16,13 @@ namespace MarsRover.API.Models
         public int? GridId { get; set; }
 
         public MarsGrid MarsGrid { get; set; }
-        public ICollection<RoverMovement> Movements { get; set; }
+        public int BeginX { get; set; }
+        public int BeginY { get; set; }
+        public string BeginOrientation { get; set; }
+        public string MovementInput { get; set; }
+        public int? EndX { get; set; }
+        public int? EndY { get; set; }
+        public string EndOrientation { get; set; } 
 
     }
 }

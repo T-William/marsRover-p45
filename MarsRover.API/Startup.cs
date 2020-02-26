@@ -55,13 +55,11 @@ namespace MarsRover.API
 
 });
 
-            services.AddScoped<IRoverRepository, RoverRepository>();
-            services.AddScoped<IRoverMovementRepository, RoverMovementRepository>();
+            services.AddScoped<IRoverRepository, RoverRepository>();            
             services.AddScoped<IMarsGridRepository, MarsGridRepository>();
             //services
             services.AddScoped<IValidationDictionary, Validation>();
-            services.AddScoped<IRoverService, RoverService>();
-            services.AddScoped<IRoverMovementService, RoverMovementService>();
+            services.AddScoped<IRoverService, RoverService>();            
             services.AddScoped<IMarsGridService, MarsGridService>();
         }
 

@@ -1,9 +1,13 @@
-import { RoverMovements } from './roverMovements';
 
 export interface Rover {
-  id: number;
-  name: string;
-  totalMovements: string;
-  totalDeployments: number;
-  movements: RoverMovements[];
+   id: number;
+   name: string;
+   gridId: number;
+   beginX: number;
+   beginY: number;
+   beginOrientation: string;
+   movementInput: string;
+   endX: number;
+   endY: number;
+   endOrientation: string;
 }

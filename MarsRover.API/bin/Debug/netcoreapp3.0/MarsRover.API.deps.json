@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.0": {
       "MarsRover.API/1.0.0": {
         "dependencies": {
+          "AlertifyJS": "1.13.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "DocumentFormat.OpenXml": "2.9.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.0.0",
@@ -32,6 +33,7 @@
           "MarsRover.API.dll": {}
         }
       },
+      "AlertifyJS/1.13.0": {},
       "AutoMapper/9.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.6.0",
@@ -2411,6 +2413,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AlertifyJS/1.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bFkKDI0em5oTVhaSACDtP6plVFVSX9Tm+mJ0woUSJyVFdMbldnXR2bgMM/wO4MbY4J8G72FaAS9q8iQ43s3u8w==",
+      "path": "alertifyjs/1.13.0",
+      "hashPath": "alertifyjs.1.13.0.nupkg.sha512"
     },
     "AutoMapper/9.0.0": {
       "type": "package",

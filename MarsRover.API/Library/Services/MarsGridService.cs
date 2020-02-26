@@ -59,6 +59,11 @@ namespace MarsRover.API.Library.Services
             var marsGrid = await _repo.GetGrid(id);
             return _mapper.Map<MarsGridDto>(marsGrid);
         }
+        public async Task<MarsGridDto> GetDefaultGrid()
+        {
+            var marsGrid = await _repo.GetDefaultGrid();
+            return _mapper.Map<MarsGridDto>(marsGrid);
+        }
 
         public async Task<List<MarsGridDto>> GetMarsGridFull()
         {
@@ -87,7 +92,20 @@ namespace MarsRover.API.Library.Services
 
         public IValidationDictionary Validate(MarsGridDto dtoToValidate, bool IsCreate, string ImportMessage = "")
         {
-            throw new System.NotImplementedException();
+            //Required            
+            _validation.Required(dtoToValidate.GridName, $"{ImportMessage}Grid Name is required.");
+
+
+            //String Length
+
+            _validation.MaxLength(dtoToValidate.GridName, 150, $"{ImportMessage}Grid Name: Max length of 150");
+
+
+
+
+
+
+            return _validation;
         }
     }
 }

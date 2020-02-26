@@ -11,6 +11,7 @@ namespace MarsRover.API.Data.Interfaces
         Task<bool> SaveAll();
         Task<List<MarsGrid>> GetGridsFull();
         Task<MarsGrid> GetGrid(int id);
+        Task<MarsGrid> GetDefaultGrid();
 
     }
 }

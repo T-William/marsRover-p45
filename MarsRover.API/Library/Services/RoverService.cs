@@ -15,10 +15,12 @@ namespace MarsRover.API.Library.Services
         private readonly IMapper _mapper;
         private readonly IValidationDictionary _validation;
         private readonly IRoverRepository _repo;
+        private readonly IMarsGridRepository _repoGrid;
 
-        public RoverService(IMapper mapper, IValidationDictionary validation, IRoverRepository repo)
+        public RoverService(IMapper mapper, IValidationDictionary validation, IRoverRepository repo, IMarsGridRepository repoGrip)
         {
             _repo = repo;
+            _repoGrid = repoGrip;
             _mapper = mapper;
             _validation = validation;
         }
@@ -27,6 +29,103 @@ namespace MarsRover.API.Library.Services
         {
             var fund = await _repo.GetRover(id);
             return _mapper.Map<RoverDto>(fund);
+        }
+        public async Task<IValidationDictionary> CalculateMovement(int GridId, RoverDto dto)
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var currentGrid = _repoGrid.GetGrid(GridId).Result;
+                List<PossibleMovements> movementsList = new List<PossibleMovements>();
+                var movInput = dto.MovementInput;
+                var movInputLength = dto.MovementInput.Length;
+                var currentX = dto.BeginX;
+                var currentY = dto.BeginY;
+                var currentDir = dto.BeginOrientation;
+
+
+                if (dto.BeginX! > currentGrid.GridSizeX && dto.BeginY! > currentGrid.GridSizeY)
+                {
+                    //List for Movement
+                    for (int i = 0; i <= movInputLength; i++)
+                    {
+                        if ((movInput.Substring(i, 1)) == "M")
+                            movementsList.Add(PossibleMovements.M);
+                        else if ((movInput.Substring(i, 1)) == "L")
+                            movementsList.Add(PossibleMovements.L);
+                        else if ((movInput.Substring(i, 1)) == "R")
+                            movementsList.Add(PossibleMovements.R);
+                    }
+
+                    //Calculate Movements
+                    foreach (var item in movementsList)
+                    {
+                        switch (item)
+                        {
+                            case PossibleMovements.L:
+                                {
+                                    if (currentDir == "N")
+                                        currentDir = "W";
+                                    else if (currentDir == "W")
+                                        currentDir = "S";
+                                    else if (currentDir == "S")
+                                        currentDir = "E";
+                                    else if (currentDir == "E")
+                                        currentDir = "N";
+                                    break;
+                                }
+                            case PossibleMovements.R:
+                                {
+                                    if (currentDir == "N")
+                                        currentDir = "E";
+                                    else if (currentDir == "W")
+                                        currentDir = "N";
+                                    else if (currentDir == "S")
+                                        currentDir = "W";
+                                    else if (currentDir == "E")
+                                        currentDir = "S";
+                                    break;
+                                }
+                            case PossibleMovements.M:
+                                {
+                                    //Rover can't go off grid - for simplicity the rover will simply just stay in the current position if it is the end of the grid.
+                                    if (currentDir == "N")
+                                        if (currentY + 1 <= currentGrid.GridSizeY)
+                                            currentY = currentY + 1;
+                                        else if (currentDir == "W")
+                                            if (currentX - 1 >= 0)
+                                                currentX = currentX + 1;
+                                            else if (currentDir == "S")
+                                                if (currentY - 1 >= 0)
+                                                    currentY = currentY + 1;
+                                                else if (currentDir == "E")
+                                                    if (currentX + 1 <= currentGrid.GridSizeX)
+                                                        currentX = currentX + 1;
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+
+                    //Assign new Pos to Rover
+                    dto.EndOrientation = currentDir;
+                    dto.EndX = currentX;
+                    dto.EndY = currentY;
+
+
+                }
+                Validate(dto, false);
+                if (_validation.IsValid)
+                {
+                    var roverFromRepo = await _repo.GetRover(dto.Id);
+
+                    _mapper.Map(dto, roverFromRepo);
+                    await _repo.SaveAll();
+                }
+
+                scope.Complete();
+                return _validation;
+            }
         }
 
         public async Task<IValidationDictionary> Create(RoverDto dto)
@@ -63,13 +162,14 @@ namespace MarsRover.API.Library.Services
             return _validation;
         }
 
-        public async Task<List<RoverDto>> GetRovers()
+        public async Task<List<RoverDto>> GetRovers(int gridId)
         {
-            var roversToList = await _repo.GetRoversFull();
+            var roversToList = await _repo.GetRoversFull(gridId);
 
-            var roversToReturn = _mapper.Map<List<RoverDto>>(roversToList);
 
-            return roversToReturn;
+            return _mapper.Map<List<RoverDto>>(roversToList);
+
+
 
         }
 
@@ -120,6 +220,12 @@ namespace MarsRover.API.Library.Services
                 ValidateRoverNameExists(dtoToValidate.Name, ImportMessage);
 
             return _validation;
+        }
+        public enum PossibleMovements
+        {
+            L,
+            R,
+            M
         }
     }
 }

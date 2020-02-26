@@ -12,7 +12,7 @@ namespace MarsRover.API.Data
 
         public DbSet<Rover> Rover { get; set; }
         public DbSet<MarsGrid> Grid { get; set; }
-        public DbSet<RoverMovement> RoverMovement { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

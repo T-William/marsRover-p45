@@ -2,6 +2,9 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
+      "AlertifyJS/1.13.0": {
+        "type": "package"
+      },
       "AutoMapper/9.0.0": {
         "type": "package",
         "dependencies": {
@@ -3638,6 +3641,35 @@
     }
   },
   "libraries": {
+    "AlertifyJS/1.13.0": {
+      "sha512": "bFkKDI0em5oTVhaSACDtP6plVFVSX9Tm+mJ0woUSJyVFdMbldnXR2bgMM/wO4MbY4J8G72FaAS9q8iQ43s3u8w==",
+      "type": "package",
+      "path": "alertifyjs/1.13.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "alertifyjs.1.13.0.nupkg.sha512",
+        "alertifyjs.nuspec",
+        "content/Content/alertifyjs/alertify.css",
+        "content/Content/alertifyjs/alertify.min.css",
+        "content/Content/alertifyjs/alertify.rtl.css",
+        "content/Content/alertifyjs/alertify.rtl.min.css",
+        "content/Content/alertifyjs/themes/bootstrap.css",
+        "content/Content/alertifyjs/themes/bootstrap.min.css",
+        "content/Content/alertifyjs/themes/bootstrap.rtl.css",
+        "content/Content/alertifyjs/themes/bootstrap.rtl.min.css",
+        "content/Content/alertifyjs/themes/default.css",
+        "content/Content/alertifyjs/themes/default.min.css",
+        "content/Content/alertifyjs/themes/default.rtl.css",
+        "content/Content/alertifyjs/themes/default.rtl.min.css",
+        "content/Content/alertifyjs/themes/semantic.css",
+        "content/Content/alertifyjs/themes/semantic.min.css",
+        "content/Content/alertifyjs/themes/semantic.rtl.css",
+        "content/Content/alertifyjs/themes/semantic.rtl.min.css",
+        "content/Scripts/alertify.js",
+        "content/Scripts/alertify.min.js"
+      ]
+    },
     "AutoMapper/9.0.0": {
       "sha512": "xCqvoxT4HIrNY/xlXG9W+BA/awdrhWvMTKTK/igkGSRbhOhpl3Q8O8Gxlhzjc9JsYqE7sS6AxgyuUUvZ6R5/Bw==",
       "type": "package",
@@ -10766,6 +10798,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+      "AlertifyJS >= 1.13.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
       "DocumentFormat.OpenXml >= 2.9.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 3.0.0",
@@ -10830,6 +10863,10 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
+          "AlertifyJS": {
+            "target": "Package",
+            "version": "[1.13.0, )"
+          },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[7.0.0, )"

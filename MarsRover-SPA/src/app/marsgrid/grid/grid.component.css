@@ -1,4 +1,9 @@
-.MarsGridBlock{
+.MarsGridBigBlock{
     height: 2cm;
     width: 2cm;    
+}
+.MarsGridSmallBlock{
+    height:1cm;
+    width: 1cm;
+    font-size: x-small;    
 }

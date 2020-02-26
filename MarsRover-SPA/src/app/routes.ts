@@ -1,14 +1,10 @@
-import { HomeComponent } from "./home/home.component";
+import { GridComponent } from './marsgrid/grid/grid.component';
+import { MarsGridResolver } from './_resolvers/marsGridResolver';
 
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 
 export const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  {
-    path: "marsGrid",
-    loadChildren: () =>
-      import("./marsgrid/marsgrid.module").then(mod => mod.MarsgridModule)
-  },
-
-  { path: "**", redirectTo: "", pathMatch: "full" }
+   { path: 'grid', resolve: { defaultGrid: MarsGridResolver }, component: GridComponent },
+   ,
+   { path: '**',resolve: { defaultGrid: MarsGridResolver }, redirectTo: '' },
 ];

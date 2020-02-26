@@ -16,12 +16,12 @@ namespace MarsRover.API.Helpers
             CreateMap<Rover,RoverDto>();
             CreateMap<RoverDto,Rover>();
 
-            //RoverMovement
-            CreateMap<RoverMovement,RoverMovementDto>();
-            CreateMap<RoverMovementDto,RoverMovement>();
-
-            //MarsGrid
-            CreateMap<MarsGrid,MarsGridDto>();
+             //MarsGrid
+            CreateMap<MarsGrid,MarsGridDto>()
+            .ForMember(dest => dest.Description, opt =>
+                {
+                    opt.MapFrom(src => src.GridName + " Size- "+ "(" + src.GridTotalSize + ")");
+                });
             CreateMap<MarsGridDto,MarsGrid>();
 
 

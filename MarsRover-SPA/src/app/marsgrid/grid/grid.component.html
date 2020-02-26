@@ -1,45 +1,90 @@
+<div class=" text-center cover-container bg-primary d-flex w-100 h-100 p-3 mx-auto flex-column">
+   <header class="masthead mb-auto">
+      <div class="inner">
+         <h3 class="masthead-brand text-white">Mars Rover Challenge</h3>
+      </div>
+   </header>
+</div>
 <div class="justify-content-center text-center">
-  <div class="card border-primary mb-3 d-flex">
-    <div class="card-header"><h4>Mars Grid</h4></div>
-    <div class="card-body">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-center b p-2">
-          <app-rover></app-rover>
-        </div>
-        <div class="d-flex">
-        <!-- grid math          -->
-<div class="d-flex flex-column">
-          <div class="border border-primary MarsGridBlock bg-secondary" >
-            Test block
-          </div>          
-            
-          </div>
-          </div>
-        
-        <div class="border border-primary p-2">
-          <div class="d-flex justify-content-center bg-primary text-center text-white pt-1">
-          <h5>Grid Toolbar</h5>
-        </div>
-          <div class="d-flex">
-            <kendo-textbox-container floatingLabel="Grid X blocks" class="w-100">
-              <kendo-numerictextbox
-               [min]="0" [max]="10">
-          </kendo-numerictextbox>
-            </kendo-textbox-container>
-          </div>
-          <div class="d-flex">
-            <kendo-textbox-container floatingLabel="Grid Y blocks" class="w-100">
-              <kendo-numerictextbox
-               [min]="0" [max]="10">
-          </kendo-numerictextbox>
-            </kendo-textbox-container>
-          </div>
-          <div class="d-flex justify-content-center pt-2">
-            <button kendoButton [primary]="true">Apply to Grid</button>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
+   <div class="card border-primary mb-3 d-flex">
+      <div class="card-header"><h4>Mars Grid</h4></div>
+      <div class="card-body">
+         <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-center b p-2">
+               <app-rover [selectedGrid]="gridSelected"></app-rover>
+            </div>
 
+            <div class="d-flex">
+               <!-- grid math          -->
+               <div *ngFor="let itemX of gridxArray" class="d-flex flex-column text-center align-items-center justify-content-center mt-2">
+                  <div
+                     [ngClass]="gridtotal > 100 ? 'MarsGridSmallBlock' : 'MarsGridBigBlock'"
+                     *ngFor="let itemY of gridyArray"
+                     class="d-flex border border-primary align-items-center text-center justify-content-center bg-secondary"
+                     id="{{ itemY }},{{ itemX }}"
+                  >
+                     {{ itemY }},{{ itemX }}
+                     <div *ngIf="itemY==beginy && itemX==beginx">Rover Start Y</div>
+                     <div *ngIf="itemY==endy && itemX==endx">Rover end Y</div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="border border-primary p-2">
+               <div class="d-flex justify-content-center bg-primary text-center text-white pt-1">
+                  <h5>Grid Toolbar</h5>
+               </div>
+               <div>
+                  <kendo-textbox-container floatingLabel="Mars Grids" class="w-100">
+                     <kendo-combobox
+                        [data]="marsGridList"
+                        [textField]="'description'"
+                        [valueField]="'id'"
+                        [(ngModel)]="gridSelected"
+                        class="w-100"
+                        (selectionChange)="gridChange($event)"
+                     >
+                     </kendo-combobox>
+                  </kendo-textbox-container>
+               </div>
+               <div>
+                  <form class="k-form" [formGroup]="gridForm" (ngSubmit)="save()">
+                     <div class="d-flex">
+                        <kendo-textbox-container floatingLabel="Grid Name *" class="w-100">
+                           <input kendoTextBox id="gridNameEdit" name="gridName" formControlName="gridName" class="w-100" />
+                        </kendo-textbox-container>
+                        <div
+                           class="text-danger"
+                           *ngIf="gridForm.controls['gridName'].hasError('required') && (gridForm.controls['gridName'].dirty || gridForm.controls['gridName'].touched)"
+                        >
+                           Code required
+                        </div>
+                        <div class="text-danger" *ngIf="gridForm.controls['gridName'].hasError('maxlength')">
+                           Max Length of 150 allowed
+                        </div>
+                     </div>
+                     <div class="d-flex">
+                        <kendo-textbox-container floatingLabel="Grid X blocks" class="w-100">
+                           <kendo-numerictextbox formControlName="gridSizeX" [(ngModel)]="gridx" [value]="gridx" [min]="0" [max]="30" [format]="'n'"> </kendo-numerictextbox>
+                        </kendo-textbox-container>
+                     </div>
+                     <div class="d-flex">
+                        <kendo-textbox-container floatingLabel="Grid Y blocks" class="w-100">
+                           <kendo-numerictextbox formControlName="gridSizeY" [(ngModel)]="gridy" [value]="gridy" [min]="0" [max]="30" [format]="'n'"> </kendo-numerictextbox>
+                        </kendo-textbox-container>
+                     </div>
+                     <div class="d-flex justify-content-center">
+                        <button [disabled]="gridForm.invalid" look="flat" kendoButton type="submit" icon="save" [primary]="true">
+                           Save
+                        </button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <div class="d-flex justify-content-center pt-2">
+            <button kendoButton [primary]="true" (click)="deployRovers()">Deploy Rovers</button>
+         </div>
+      </div>
+   </div>
+</div>

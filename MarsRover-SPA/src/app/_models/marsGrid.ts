@@ -7,5 +7,6 @@ export interface MarsGrid {
   gridSizeX: number;
   gridSizeY: number;
   gridTotalSize: number;
+  description:string;
   rovers: Rover[];
 }

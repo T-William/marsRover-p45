@@ -29,6 +29,12 @@ namespace MarsRover.API.Data.Repositories
             return await _context.Grid.FirstOrDefaultAsync(g => g.Id == id);
         }
 
+        public async Task<MarsGrid> GetDefaultGrid()
+        {
+            var grid = await _context.Grid.FirstOrDefaultAsync();
+            return grid;
+        }
+
         public async Task<List<MarsGrid>> GetGridsFull()
         {
             return await _context.Grid.ToListAsync();

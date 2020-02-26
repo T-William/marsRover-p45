@@ -8,6 +8,7 @@ namespace MarsRover.API.Library.Interfaces
     {
         Task<List<MarsGridDto>> GetMarsGridFull();
         Task<MarsGridDto> GetMarsGrid(int id);
+        Task<MarsGridDto> GetDefaultGrid();
         Task<IValidationDictionary> Create(MarsGridDto dto);
         Task<IValidationDictionary> Update(int id, MarsGridDto dto);
         Task<IValidationDictionary> Delete(int id);

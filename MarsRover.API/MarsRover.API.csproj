@@ -23,5 +23,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.0.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0"/>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0"/>
+    <PackageReference Include="AlertifyJS" Version="1.13.0"/>
   </ItemGroup>
 </Project>

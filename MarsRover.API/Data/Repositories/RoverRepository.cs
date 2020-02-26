@@ -27,18 +27,18 @@ namespace MarsRover.API.Data.Repositories
 
         public async Task<Rover> GetRover(int Id)
         {
-            var rover = await _context.Rover.Include(s => s.Movements).FirstOrDefaultAsync(r => r.Id == Id);
+            var rover = await _context.Rover.FirstOrDefaultAsync(r => r.Id == Id);
             return rover;
 
         }
 
-        public async Task<List<Rover>> GetRoversFull()
+        public async Task<List<Rover>> GetRoversFull(int gridId)
         {
-            return await _context.Rover.Include(s => s.Movements).ToListAsync();
+            return await _context.Rover.Where(x=>x.GridId == gridId).ToListAsync();
         }
 
         public async Task<PagedList<Rover>> GetPagedRoverList(RoverParams roverParams){
-            var rovers = _context.Rover.Include(x=>x.Movements).OrderBy(r=>r.Id).AsQueryable();
+            var rovers = _context.Rover.OrderBy(r=>r.Id).AsQueryable();
 
             if (!string.IsNullOrEmpty(roverParams.OrderBy))
             {
