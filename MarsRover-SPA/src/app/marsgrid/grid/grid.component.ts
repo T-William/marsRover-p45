@@ -1,3 +1,4 @@
+
 import { Movements } from './../../_models/movements';
 import { Rover } from 'src/app/_models/rover';
 
@@ -5,10 +6,12 @@ import { RoverService } from './../_services/rover.service';
 import { AlertifyService } from './../../_services/alertify.service';
 import { GridService } from './../_services/grid.service';
 import { MarsGrid } from './../../_models/marsGrid';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { Validators, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs';
 
 @Component({
    selector: 'app-grid',
@@ -40,6 +43,9 @@ export class GridComponent implements OnInit {
    roverMovements: Movements[] = [];
    lastMovement: Movements;
    rovSplitMoveList: string[];
+   @Output()
+   refreshRoverGrid: EventEmitter<Rover> = new EventEmitter<Rover>();
+   private roverGridSubscription: Subscription;
    // tslint:disable-next-line: max-line-length
    constructor(
       private gridService: GridService,
@@ -183,11 +189,13 @@ export class GridComponent implements OnInit {
                      this.roverMovements.push(this.lastMovement);
                   });
                });
+               
                this.alertify.success('Rover Deployed');
             });
       });
    }
 
+   
    oneStepForRover(movement: string) {
       if (movement === 'L') {
          if (this.currentDir == 'N') {

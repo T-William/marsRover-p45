@@ -14,6 +14,8 @@ export class RoverService {
    baseUrl = environment.apiUrl;
    roverSelected = new Subject<Rover>();
    gridSelected = new Subject<MarsGrid>();
+   
+
    constructor(private http: HttpClient) {}
 
    changeEditState(r: Rover) {
@@ -22,12 +24,13 @@ export class RoverService {
    changeViewState(m: MarsGrid) {
       this.gridSelected.next(m);
    }
+
    getRover(id): Observable<Rover> {
       return this.http.get<Rover>(this.baseUrl + 'Rover/' + id);
    }
 
-   getRovers(gridId:number): Observable<Rover[]> {
-      return this.http.get<Rover[]>(this.baseUrl + 'Rover/full/'+gridId).pipe(
+   getRovers(gridId: number): Observable<Rover[]> {
+      return this.http.get<Rover[]>(this.baseUrl + 'Rover/full/' + gridId).pipe(
          map((data: any) => data.result),
          catchError(error => {
             return throwError('Its a trap');
@@ -47,5 +50,5 @@ export class RoverService {
 
    calculateRoverMovement(gridId: number, rovers: Rover[]) {
       return this.http.put(this.baseUrl + 'Rover/calculate/' + gridId, rovers);
-    }
+   }
 }

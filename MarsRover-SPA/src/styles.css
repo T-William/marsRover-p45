@@ -3,5 +3,9 @@
 
 
 .alertify-notifier .ajs-message.ajs-error{
-    color: white;
+    color: black;
 }
+::ng-deep .alertify-notifier .ajs-message.ajs-success {
+    color:black !important;
+    background: rgba(91, 189, 114, 0.95) !important;
+}    

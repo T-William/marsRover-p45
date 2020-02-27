@@ -6,8 +6,7 @@ namespace MarsRover.API.Dtos
     public class MarsGridDto
     {
         public int Id { get; set; }
-        public string GridName { get; set; }
-        public int NumberOfRovers { get; set; }
+        public string GridName { get; set; }        
 
         public int GridSizeX { get; set; }
         public int GridSizeY { get; set; }

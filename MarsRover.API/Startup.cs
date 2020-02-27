@@ -46,6 +46,7 @@ namespace MarsRover.API
             options.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
             services.AddCors();
             services.AddAutoMapper(typeof(RoverRepository).Assembly);
+            services.AddTransient<Seed>();
 
 
             services.AddControllers()
@@ -65,7 +66,7 @@ namespace MarsRover.API
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -77,6 +78,7 @@ namespace MarsRover.API
             app.UseRouting();
 
             app.UseAuthorization();
+            seeder.SeedAll();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 

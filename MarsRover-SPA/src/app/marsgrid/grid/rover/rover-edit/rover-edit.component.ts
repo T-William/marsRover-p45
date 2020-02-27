@@ -23,6 +23,8 @@ export class RoverEditComponent implements OnInit, OnDestroy {
    selectedGridId: number;
    gridMaxX: number;
    gridMaxY: number;
+   
+   
 
    @Output()
    dialogClose: EventEmitter<Rover> = new EventEmitter<Rover>();
@@ -97,28 +99,30 @@ export class RoverEditComponent implements OnInit, OnDestroy {
       );
    }
    beginOrientationRule(g: FormGroup) {
-      var x = g.get('beginOrientation').value.toUpperCase();
-      var check = ['N','E','S','W'];
+      const x = g.get('beginOrientation').value;
+      const check = ['N', 'E', 'S', 'W'];
       if (!check.includes(x)) {
          return { beginOrientationRule: true };
       }
       return null;
    }
    movementInputRule(g: FormGroup) {
-      var movementInputString = g.get('movementInput').value.toUpperCase();
-      var movementList = movementInputString.split('');
-      var check = ['L','M','R'];
-      var errorCount =0;  
+      if(g){
+      const movementInputString = g.get('movementInput').value;
+      const movementList = movementInputString.split('');
+      const check = ['L', 'M', 'R'];
+      let errorCount = 0;
 
       movementList.forEach(el => {
-         if(!check.includes(el)){
+         if (!check.includes(el)) {
             errorCount = 1;
-         }         
+         }
       });
-      if(errorCount != 0){
-            return { movementInputRule: true };
+      if (errorCount != 0) {
+         return { movementInputRule: true };
       }
       return null;
+   }
    }
    close() {
       this.opened = false;

@@ -2,8 +2,7 @@ import { Rover } from "./rover";
 
 export interface MarsGrid {
   id: number;
-  gridName: string;
-  numberOfRovers: number;
+  gridName: string;  
   gridSizeX: number;
   gridSizeY: number;
   gridTotalSize: number;

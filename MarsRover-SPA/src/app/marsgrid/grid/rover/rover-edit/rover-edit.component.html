@@ -22,8 +22,8 @@
                   kendoTextBox
                   id="nameEdit"
                   name="name"
-                  formControlName="name"
-                  class="w-100"
+                  formControlName="name"                  
+                  class="w-100 upperclass"
                 />
               </kendo-textbox-container>
               <div
@@ -80,7 +80,7 @@
                 Starting Direction required
               </div>    
               <div class="text-danger" *ngIf="roverForm.hasError('beginOrientationRule')">
-                Beginning Orientation will have to be a Valid Direction (N,E,S,W)
+                Beginning Orientation will have to be a Valid Direction (N,E,S,W) and in upper case.
              </div>
                         
             </div>
@@ -91,7 +91,7 @@
                   id="movInputEdit"
                   name="movementInput"
                   formControlName="movementInput"
-                  class="w-100"
+                  class="w-100 upperclass"
                 />
               </kendo-textbox-container>
               <div class="text-danger" *ngIf="roverForm.hasError('movementInputRule')">
