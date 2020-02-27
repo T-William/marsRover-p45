@@ -11,6 +11,7 @@ namespace MarsRover.API.Data.Interfaces
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
         Task<List<Rover>> GetRoversFull(int gridId);
+        Task<List<Rover>> GetRoversFull();
 
         Task<PagedList<Rover>> GetPagedRoverList(RoverParams roverParams);
 

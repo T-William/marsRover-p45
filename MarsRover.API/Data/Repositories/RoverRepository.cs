@@ -36,7 +36,10 @@ namespace MarsRover.API.Data.Repositories
         {
             return await _context.Rover.Where(x=>x.GridId == gridId).ToListAsync();
         }
-
+        public async Task<List<Rover>> GetRoversFull()
+        {
+            return await _context.Rover.ToListAsync();
+        }
         public async Task<PagedList<Rover>> GetPagedRoverList(RoverParams roverParams){
             var rovers = _context.Rover.OrderBy(r=>r.Id).AsQueryable();
 

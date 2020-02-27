@@ -35,7 +35,7 @@ namespace MarsRover.API.Data
         }
         public void SeedRovers()
         {
-            var roverList = _repoRover.GetRoversFull(2).Result;
+            var roverList = _repoRover.GetRoversFull().Result;
             if (roverList.Count == 0)
             {
                 var rover1 = new Rover();
