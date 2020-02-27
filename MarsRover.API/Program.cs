@@ -21,8 +21,7 @@ namespace marsrover.api
                 try
                 {
                     var context = services.GetRequiredService<DataContext>();
-                    context.Database.Migrate();
-                    Seed.SeedGrid(context);
+                    context.Database.Migrate();                    
                 }
                 catch (System.Exception ex)
                 {
