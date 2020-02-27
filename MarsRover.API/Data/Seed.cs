@@ -1,3 +1,4 @@
+using System.Linq;
 using MarsRover.API.Data.Interfaces;
 using MarsRover.API.Models;
 
@@ -14,28 +15,27 @@ namespace MarsRover.API.Data
             _repoRover = repoRover;
         }
         public void SeedAll()
-        {
-            SeedGrid();
+        {            
             SeedRovers();
         }
 
-        public void SeedGrid()
+        public static void SeedGrid(DataContext context)
         {
-            var gridList = _repoGrid.GetGridsFull().Result;
-            if (gridList.Count == 0)
+            
+            if (!context.Grid.Any())
             {
                 var grid1 = new MarsGrid();                
                 grid1.GridSizeX = 33;
                 grid1.GridSizeY = 25;
                 grid1.GridTotalSize= 825;
                 grid1.GridName = "MaximumEffort";                
-                _repoGrid.Add(grid1);
-                _repoGrid.SaveAll().Wait();
+                context.Add(grid1);
+                context.SaveChanges();
             }
         }
         public void SeedRovers()
         {
-            var roverList = _repoRover.GetRoversFull(0).Result;
+            var roverList = _repoRover.GetRoversFull(2).Result;
             if (roverList.Count == 0)
             {
                 var rover1 = new Rover();

@@ -22,6 +22,7 @@ namespace marsrover.api
                 {
                     var context = services.GetRequiredService<DataContext>();
                     context.Database.Migrate();
+                    Seed.SeedGrid(context);
                 }
                 catch (System.Exception ex)
                 {
@@ -30,15 +31,13 @@ namespace marsrover.api
                 }
                 host.Run();
 
-            }
-            Console.WriteLine("Hello World!");
+            }            
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
     {
         webBuilder.UseStartup<Startup>()
-        // .UseUrls("http://localhost:5000") 
-        // .UseUrls("http://localhost:5000", "http://192.168.27.177:5000")  
+        
         .ConfigureKestrel((context, options) =>
         {
             options.AllowSynchronousIO = true;

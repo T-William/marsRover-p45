@@ -81,6 +81,9 @@ namespace MarsRover.API
             seeder.SeedAll();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
 
             app.UseEndpoints(endPoints =>
             {
