@@ -7,7 +7,6 @@ import { Component, OnInit, EventEmitter, Output, OnDestroy, Pipe, Input } from 
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
    selector: 'app-rover-edit',
    templateUrl: './rover-edit.component.html',
@@ -45,12 +44,12 @@ export class RoverEditComponent implements OnInit, OnDestroy {
             this.RoverId = c.id;
             this.roverService.getRover(c.id).subscribe((rovData: Rover) => {
                this.rover = rovData;
-               this.selectedGridId = this.rover.gridId;
+               this.selectedGridId = this.gridSelected.id;
                this.roverForm.setValue({
                   id: this.rover.id,
                   name: this.rover.name,
-                  startX: this.rover.beginX,
-                  startY: this.rover.beginY,
+                  beginX: this.rover.beginX,
+                  beginY: this.rover.beginY,
                   beginOrientation: this.rover.beginOrientation,
                   movementInput: this.rover.movementInput,
                });
@@ -59,6 +58,7 @@ export class RoverEditComponent implements OnInit, OnDestroy {
          } else {
             this.gridMaxX = this.gridSelected.gridSizeX;
             this.gridMaxY = this.gridSelected.gridSizeY;
+            this.selectedGridId = this.gridSelected.id;
             this.opened = true;
             this.ModalTitle = 'New Rover';
             this.isNewMode = true;
@@ -66,10 +66,10 @@ export class RoverEditComponent implements OnInit, OnDestroy {
             this.roverForm.setValue({
                id: 0,
                name: '',
-               startX: 0,
-               startY: 0,
-               startDir: '',
+               beginX: 0,
+               beginY: 0,
                beginOrientation: '',
+               movementInput: '',
             });
             this.loading = false;
          }
@@ -84,14 +84,41 @@ export class RoverEditComponent implements OnInit, OnDestroy {
       this.roverEditSubscription.unsubscribe();
    }
    createForm() {
-      this.roverForm = this.fb.group({
-         id: [0],
-         name: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
-         startX: ['', Validators.required],
-         startY: ['', Validators.required],
-         beginOrientation: ['', Validators.required],
-         movementInput: ['', Validators.required],
+      this.roverForm = this.fb.group(
+         {
+            id: [0],
+            name: ['', Validators.compose([Validators.required, Validators.maxLength(150)])],
+            beginX: ['', Validators.required],
+            beginY: ['', Validators.required],
+            beginOrientation: ['', Validators.required],
+            movementInput: ['', Validators.compose([Validators.required])],
+         },
+         { validator: [this.beginOrientationRule, this.movementInputRule] }
+      );
+   }
+   beginOrientationRule(g: FormGroup) {
+      var x = g.get('beginOrientation').value.toUpperCase();
+      var check = ['N','E','S','W'];
+      if (!check.includes(x)) {
+         return { beginOrientationRule: true };
+      }
+      return null;
+   }
+   movementInputRule(g: FormGroup) {
+      var movementInputString = g.get('movementInput').value.toUpperCase();
+      var movementList = movementInputString.split('');
+      var check = ['L','M','R'];
+      var errorCount =0;  
+
+      movementList.forEach(el => {
+         if(!check.includes(el)){
+            errorCount = 1;
+         }         
       });
+      if(errorCount != 0){
+            return { movementInputRule: true };
+      }
+      return null;
    }
    close() {
       this.opened = false;
@@ -101,6 +128,8 @@ export class RoverEditComponent implements OnInit, OnDestroy {
    save() {
       this.loading = true;
       this.rover = Object.assign({}, this.roverForm.value);
+      this.rover.movementInput = this.rover.movementInput.toUpperCase();
+      this.rover.gridId = this.selectedGridId;
       if (this.isNewMode) {
          this.roverService
             .createRover(this.rover)

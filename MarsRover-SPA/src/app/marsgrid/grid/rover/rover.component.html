@@ -1,35 +1,43 @@
-<app-rover-edit [gridSelected]="selectedGrid"></app-rover-edit>
+<app-rover-edit [gridSelected]="selectedGrid" (dialogClose)="closeRoverEdit($event)"></app-rover-edit>
 <div class="justify-content-center b p-2">
   <div class="border border-primary p-2">
     <div class="d-flex justify-content-center bg-primary text-center text-white pt-1">
     <h5>Mars Rovers</h5>
   </div>          
   <div *ngFor="let item of roverList" class="border border-primary m-1 p-1">
-    <div class="d-flex justify-content-center">
-    <div class="pr-1 d-flex">
+    <div class="d-flex justify-content-between pb-1">
+      <div class="d-flex">
+      <span class="fas fa-truck-monster fa-2x"></span>
+    </div>
+    <div class="d-flex align-content-center pt-1">
+      <h5 class="font-weight-bold">{{item.name}}</h5>
+    </div>
+    <div class="pl-1 d-flex">
+
     <span class="fa-stack">
-      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-square fa-stack-2x"></i>
       <strong class="mb-3 fa-stack-1x" style="color: white;">
         {{item.id}}     
       </strong>
     </span>
   </div>
-  <div class="d-flex align-content-center pt-1">
-    <h6>{{item.name}}</h6>
-  </div>
+
   
     <!-- Check if rover is deployed -->
   </div>
   <div>
   <div class="pt-1 border border-primary">
-    <div class="d-flex justify-content-center">
-   <h6 class="font-weight-bold"> Rover Deployment Information</h6>
+    <div class="d-flex justify-content-center pt-1 pb-1">
+   <h6 class="font-weight-bold p-1"> Rover Deployment Information</h6>
   </div>
    <div class="d-flex justify-content-center">
-    Orientation - {{item.beginX}}, {{item.beginY}} - {{item.beginOrientation}}
+    Orientation - X:{{item.beginX}},Y:{{item.beginY}} - {{item.beginOrientation}}
   </div>
   <div class="d-flex justify-content-center">
     Movement Input - {{item.movementInput}}
+  </div>
+  <div class="d-flex justify-content-center">
+    Final Orientation - X:{{item.endX}},Y:{{item.endY}} - {{item.endOrientation}}
   </div>
   </div>
   </div>

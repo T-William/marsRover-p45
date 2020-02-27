@@ -70,7 +70,7 @@
                 />
               </kendo-textbox-container>
               <div
-                class="red-text error-text"
+                class="text-danger"
                 *ngIf="
                   roverForm.controls['beginOrientation'].hasError('required') &&
                   (roverForm.controls['beginOrientation'].dirty ||
@@ -79,6 +79,9 @@
               >
                 Starting Direction required
               </div>    
+              <div class="text-danger" *ngIf="roverForm.hasError('beginOrientationRule')">
+                Beginning Orientation will have to be a Valid Direction (N,E,S,W)
+             </div>
                         
             </div>
             <div>
@@ -91,8 +94,11 @@
                   class="w-100"
                 />
               </kendo-textbox-container>
+              <div class="text-danger" *ngIf="roverForm.hasError('movementInputRule')">
+                Movement Input will have to be a Valid Input (L,R,M)
+             </div>
               <div
-                class="red-text error-text"
+                class="text-danger"
                 *ngIf="
                   roverForm.controls['movementInput'].hasError('required') &&
                   (roverForm.controls['movementInput'].dirty ||

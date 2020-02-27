@@ -5,27 +5,43 @@
       </div>
    </header>
 </div>
-<div class="justify-content-center text-center">
+<div class="justify-content-center text-center">   
    <div class="card border-primary mb-3 d-flex">
       <div class="card-header"><h4>Mars Grid</h4></div>
       <div class="card-body">
          <div class="d-flex justify-content-between">
-            <div class="d-flex justify-content-center b p-2">
+            <div class="d-flex justify-content-center p-2">
                <app-rover [selectedGrid]="gridSelected"></app-rover>
             </div>
-
-            <div class="d-flex">
+            <div class="d-flex justify-content-center">
                <!-- grid math          -->
-               <div *ngFor="let itemX of gridxArray" class="d-flex flex-column text-center align-items-center justify-content-center mt-2">
+
+               <div *ngFor="let itemX of gridxArray" class="d-flex flex-column text-center align-items-center justify-content-center text-center">
                   <div
                      [ngClass]="gridtotal > 100 ? 'MarsGridSmallBlock' : 'MarsGridBigBlock'"
                      *ngFor="let itemY of gridyArray"
-                     class="d-flex border border-primary align-items-center text-center justify-content-center bg-secondary"
-                     id="{{ itemY }},{{ itemX }}"
+                     class="border border-primary align-items-center text-center justify-content-center bg-light"
+                     id="{{ itemX }}{{ itemY }}"
                   >
-                     {{ itemY }},{{ itemX }}
-                     <div *ngIf="itemY==beginy && itemX==beginx">Rover Start Y</div>
-                     <div *ngIf="itemY==endy && itemX==endx">Rover end Y</div>
+                     <div *ngIf="itemY == 0 && itemX != 0" class="align-items-baseline">{{ itemX }}</div>
+                     <div *ngIf="itemX == 0 && itemY != 0" class="align-items-baseline">{{ itemY }}</div>
+
+                     <div class="d-flex text-center align-items-center justify-content-center" *ngFor="let move of roverMovements">
+                        <div *ngIf="itemY == move.y && itemX == move.x && gridtotal < 100" [ngStyle]="{ 'background-color': move.colour }" class="d-flex flex-fill justify-content-center text-center">
+                           {{ move.origin }}
+                           {{ move.roverName }}
+                        </div>
+                        <div *ngIf="itemY == move.y && itemX == move.x && gridtotal > 100" class="flex-fill" [ngStyle]="{ 'background-color': move.colour }" class="d-flex flex-fill">                           
+                           
+                           <span class="fa-stack">
+                              <i class="fas fa-square fa-stack-2x"></i>
+                              <strong class="mb-3 fa-stack-1x" style="color: white;">
+                                 {{ move.roverId }}
+                              </strong>
+                           </span>
+                        
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>

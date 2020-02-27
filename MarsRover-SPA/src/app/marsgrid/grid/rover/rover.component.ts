@@ -47,6 +47,8 @@ export class RoverComponent implements OnInit {
       this.roverService.changeEditState(rover);
    }
    closeRoverEdit(c: Rover) {
-      this.updateRovers();
+      this.roverService.getRovers(this.selectedGrid.id).subscribe(_rovers => {
+         this.roverList = _rovers;
+      });
    }
 }

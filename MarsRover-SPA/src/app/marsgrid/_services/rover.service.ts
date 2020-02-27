@@ -45,7 +45,7 @@ export class RoverService {
       return this.http.delete(this.baseUrl + 'Rover/' + id);
    }
 
-   calculateRoverMovement(gridId: number, rover: Rover) {
-      return this.http.put(this.baseUrl + 'Rover/' + gridId, rover);
+   calculateRoverMovement(gridId: number, rovers: Rover[]) {
+      return this.http.put(this.baseUrl + 'Rover/calculate/' + gridId, rovers);
     }
 }

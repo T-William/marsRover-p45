@@ -16,7 +16,7 @@ namespace MarsRover.API.Library.Interfaces
         Task<RoverDto> GetRover(int id);
         Task<IValidationDictionary> Update (int id,RoverDto dto);
         Task<IValidationDictionary> Delete (int id);
-        Task<IValidationDictionary> CalculateMovement(int GridId,RoverDto dto);
+        Task<IValidationDictionary> CalculateMovement(int GridId,List<RoverDto> dto);
         IValidationDictionary Validate(RoverDto dtoToValidate, bool isCreate, string ImportMessage);
         
          

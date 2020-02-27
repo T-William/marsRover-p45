@@ -41,7 +41,7 @@ namespace MarsRover.API.Controllers
         }
 
         [HttpPut("calculate/{gridid}")]
-        public async Task<IActionResult> CalculateMovement(int gridId, RoverDto model)
+        public async Task<IActionResult> CalculateMovement(int gridId, List<RoverDto> model)
         {
             var validation = await _service.CalculateMovement(gridId, model);
             if (validation.IsValid)
